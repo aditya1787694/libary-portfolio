@@ -1,4 +1,5 @@
 # libary-portfolio
-this is my first git repositry
+author-adityasingh
 <br>
-author- aditya singh
+this is my first git repositry
+
