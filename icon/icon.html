@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookBase | Menu</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f9f9ff;
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .menu-icon {
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+      margin-right: 15px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      background: linear-gradient(135deg, #5f3ef9, #6a5eff);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .logo h1 {
+      color: #0025ff;
+      font-size: 18px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 240px;
+      height: 100%;
+      background: #fff;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      padding-top: 70px;
+      z-index: 999;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar nav ul {
+      list-style: none;
+    }
+
+    .sidebar nav ul li {
+      margin: 8px 0;
+    }
+
+    .sidebar nav ul li a {
+      text-decoration: none;
+      color: #333;
+      padding: 10px 20px;
+      display: block;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .sidebar nav ul li a.active,
+    .sidebar nav ul li a:hover {
+      background: #f0f0ff;
+      color: #5f3ef9;
+    }
+
+    /* MAIN CONTENT */
+    main {
+      padding: 90px 30px 30px;
+      transition: margin-left 0.3s ease;
+    }
+
+    .sidebar.active ~ main {
+      margin-left: 240px;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 200px;
+      }
+      .sidebar.active ~ main {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="menu-icon" id="menu-btn">&#9776;</div>
+    <div class="logo">
+      <span class="logo-icon">BB</span>
+      <h1>BookBase</h1>
+    </div>
+  </header>
+
+  <aside class="sidebar" id="sidebar">
+    <nav>
+      <ul>
+        <li><a href="#" class="active" data-page="discover">Discover</a></li>
+        <li><a href="#" data-page="category">Category</a></li>
+        <li><a href="#" data-page="library">My Library</a></li>
+        <li><a href="#" data-page="download">Download</a></li>
+        <li><a href="#" data-page="audio">Audio Books</a></li>
+        <li><a href="#" data-page="favourite">Favourite</a></li>
+        <li><a href="#" data-page="settings">Settings</a></li>
+        <li><a href="#" data-page="support">Support</a></li>
+        <li><a href="#" data-page="logout">Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="page active" id="discover">
+      <h2>Discover</h2>
+      <p>Explore trending and new books on BookBase.</p>
+    </div>
+
+    <div class="page" id="category">
+      <h2>Category</h2>
+      <p>Browse books by different genres and categories.</p>
+    </div>
+
+    <div class="page" id="library">
+      <h2>My Library</h2>
+      <p>Access your saved and downloaded books.</p>
+    </div>
+
+    <div class="page" id="download">
+      <h2>Download</h2>
+      <p>Manage your downloaded books and offline reading.</p>
+    </div>
+
+    <div class="page" id="audio">
+      <h2>Audio Books</h2>
+      <p>Listen to your favorite audio books anytime, anywhere.</p>
+    </div>
+
+    <div class="page" id="favourite">
+      <h2>Favourite</h2>
+      <p>All your favorite books in one place.</p>
+    </div>
+
+    <div class="page" id="settings">
+      <h2>Settings</h2>
+      <p>Change your preferences and account details.</p>
+    </div>
+
+    <div class="page" id="support">
+      <h2>Support</h2>
+      <p>Need help? Contact our support team.</p>
+    </div>
+
+    <div class="page" id="logout">
+      <h2>Logout</h2>
+      <p>You have been logged out successfully.</p>
+    </div>
+  </main>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    const links = document.querySelectorAll('.sidebar nav ul li a');
+    const pages = document.querySelectorAll('.page');
+
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
+
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        links.forEach(l => l.classList.remove('active'));
+        pages.forEach(p => p.classList.remove('active'));
+
+        link.classList.add('active');
+        const target = link.getAttribute('data-page');
+        document.getElementById(target).classList.add('active');
+
+        sidebar.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
